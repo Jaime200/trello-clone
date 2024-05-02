@@ -6,7 +6,7 @@ import { BoardComponent } from './pages/board/board.component';
 
 export const routes: Routes = [
     {
-        path: 'login',
+        path: '',
         component: LoginComponent
     },
     {
