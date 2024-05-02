@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
+import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { Todo } from '../../models/todo.model';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,10 @@ import { CommonModule } from '@angular/common';
     .cdk-drag-animating {
       transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
     }
+
+    .min-he-2{
+      min-height: 2.5rem
+    }
     `
   ]
 })
@@ -38,8 +42,24 @@ export class BoardComponent {
       title: 'Tarea 3'
     },
   ]
-  drop(event:CdkDragDrop<any[]>){
-    console.log(event )
-    moveItemInArray(this.todoList, event.previousIndex, event.currentIndex )
+
+  doing: Todo[] = [ {
+    id: 4,
+    title: 'Tarea por hacer'
+  }
+  ]
+  done: Todo[] = [
+    {
+      id: 5,
+      title: 'Tarea finalizada'
+    },
+  ]
+  drop(event:CdkDragDrop<Todo[]>){
+    if(event.previousContainer ===event.container){
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex )
+    }else{
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
+    }
+    
   }
 }
