@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { Todo } from '../../models/todo.model';
+import { Column, Todo } from '../../models/todo.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,36 +24,74 @@ import { CommonModule } from '@angular/common';
     .min-he-2{
       min-height: 2.5rem
     }
+    .shrink-custom{
+      flex-shrink: 0;
+    }
+
+    .overflow-x-custom{
+      overflow-x: scroll 
+    }
+
+    ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+    border-radius: 4px;
+  }
+  
+  /* Agrega un efecto hover a la barra de desplazamiento */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(107, 114, 128, var(--tw-bg-opacity));
+  }
     `
   ]
 })
 export class BoardComponent {
-  todoList: Todo[] = [
+  columns: Column[]= [
     {
-      id: 1,
-      title: 'Tarea 1'
+      title:'To do',
+      todos :  [
+        {
+          id: 1,
+          title: 'Tarea 1'
+        },
+        {
+          id: 2,
+          title: 'Tarea 2'
+        },
+        {
+          id: 1,
+          title: 'Tarea 3'
+        },
+      ]
     },
     {
-      id: 2,
-      title: 'Tarea 2'
+      title: 'Doing',
+      todos: [ {
+        id: 4,
+        title: 'Tarea por hacer'
+      }
+      ]
     },
     {
-      id: 1,
-      title: 'Tarea 3'
-    },
+      title:'Done',
+      todos: [
+        {
+          id: 5,
+          title: 'Tarea finalizada'
+        },
+      ]
+    }
   ]
-
-  doing: Todo[] = [ {
-    id: 4,
-    title: 'Tarea por hacer'
-  }
-  ]
-  done: Todo[] = [
-    {
-      id: 5,
-      title: 'Tarea finalizada'
-    },
-  ]
+  
   drop(event:CdkDragDrop<Todo[]>){
     if(event.previousContainer ===event.container){
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex )
@@ -61,5 +99,12 @@ export class BoardComponent {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
     }
     
+  }
+
+  addColumn(){
+    this.columns.push({
+      title :'New',
+      todos: []
+    })
   }
 }
