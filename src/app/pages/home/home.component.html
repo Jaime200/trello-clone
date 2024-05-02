@@ -21,15 +21,12 @@
     <cdk-accordion >
         <cdk-accordion-item #accordionMenu="cdkAccordionItem">
             <button
-  class="w-full py-1 px-2 flex justify-between items-center"
-  type="button"
-  (click)="accordionMenu.toggle()"
->
-  My Workspace
-  <fa-icon
-    [icon]="accordionMenu.expanded ? faAngleUp : faAngleDown"
-  ></fa-icon>
-</button>
+            class="w-full py-1 px-2 flex justify-between items-center"
+            type="button"
+            (click)="accordionMenu.toggle()">
+                My Workspace
+                <fa-icon [icon]="accordionMenu.expanded ? faAngleUp : faAngleDown"></fa-icon>
+            </button>
 <div
   [ngClass]="{
     hidden: !accordionMenu.expanded,
@@ -66,6 +63,17 @@
 </div>
         </cdk-accordion-item>
     </cdk-accordion>
+    <cdk-accordion  *ngFor="let item of items">
+        <cdk-accordion-item #accordionItem="cdkAccordionItem">
+          <button class="w-full text-left" type="button" (click)="accordionItem.toggle()">{{ item.label }}</button>
+          <div [style.display]="accordionItem.expanded ? '' : 'none'">
+            <ul>
+              <li class="ml-2" *ngFor="let subItem of item.items">{{ subItem.label }}</li>
+            </ul>
+          </div>
+        </cdk-accordion-item>
+      </cdk-accordion>
+
   </div>
   <div class="w-full">
     <h1 class="text-lg font-bold mb-4"><fa-icon [icon]="faClock"></fa-icon> Recently viewed</h1>
