@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() typeBtn: 'button' | 'reset' | 'submit' = 'button';
-  @Input() color: 'primary' |'danger'| 'success' = 'primary';
+  @Input() color: 'primary' |'danger'| 'success'|'gray-light' = 'primary' ;
   constructor() { }
 
   ngOnInit(): void {
