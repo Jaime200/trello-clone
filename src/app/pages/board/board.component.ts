@@ -112,7 +112,13 @@ export class BoardComponent {
     })
   }
 
-  openDialog(){
-    this.dialog.open(TodoDialogComponent, { minWidth: "300px", maxWidth: "50%", autoFocus: false })
+  openDialog(todo:Todo){
+    const dialogRef =this.dialog.open(TodoDialogComponent, { minWidth: "300px", maxWidth: "50%", autoFocus: false, data: { todo: todo} })
+    dialogRef.closed.subscribe({
+     next: (output) =>{
+      console.log(output)
+     },
+     error: (error) =>{}
+    })
   }
 }
